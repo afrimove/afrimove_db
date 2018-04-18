@@ -64,7 +64,8 @@ The first time you connect with the database, you must create the connection usi
 
 ![](../images/qgis_connection.png)
 
-Once the connection is created, you can use the **DB Manager** interface (see below) where you can explore, preview, visualize in the main canvas and also export spatial data (both vector and raster).
+Once the connection is created, you can use the **DB Manager** interface (see below) where you can explore, preview, visualize in the main canvas and also export spatial data (both vector and raster).  
+If you want to export AfriMove data in shapefile format, we reccomend to load the layer: **main.view_afrimove_gps_positions_shp**.
 
 ![](../images/qgis_export.png)
 
@@ -78,7 +79,7 @@ You can easily import data from the database into [R](https://www.r-project.org/
 library(RPostgreSQL)  
 drv <- dbDriver("PostgreSQL")  
 con <- dbConnect(drv, dbname="afrimove_db", host="eurodeer2.fmach.it", port="5432", user="YOURUSER", password="YOURPASSWORD")  
-rs <- dbSendQuery(con, "select * from main.animals")  
+rs <- dbSendQuery(con, "select * from main.view_afrimove_gps_positions_r")  
 df <- fetch(rs,-1)  
 df[1:4,]  
 str(df)  
