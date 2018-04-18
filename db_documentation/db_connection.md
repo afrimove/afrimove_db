@@ -25,7 +25,7 @@ While for basic operations this tool is very good, we recommend to use pgAdmin f
 
 To connect with the database, go to the web page [http://eurodeer2.fmach.it/phppgadmin/](http://eurodeer2.fmach.it/phppgadmin/) and enter your credentials (see image below).
 
-![](images/phppgadmin_connect.png)
+![](../images/phppgadmin_connect.png)
 
 Once connected, you will see a list of database. While you can see the structure of all the database, you will only be able to access data in the database for which you are enables (i.e. eurodeer_db). You can explore the database content using the navigation menu in the left panel. Open the schema you are interested it (in most of the cases it is *main*) and select a table. In the right panel you will see the list of fields (columns) in the table with a description of their content.  
 To visualize the data, click on **Browse**, to download the data in a set of possible formats (including .csv) click on **Export** (see image below).
