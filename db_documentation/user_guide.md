@@ -1,4 +1,5 @@
-<img src="images/afrimove_logo.png" Height="29"/> # USER GUIDE	
+<img src="images/afrimove_logo.png" Height="35"/>  
+# USER GUIDE	
 
 * [Introduction](#Introduction)
 * [Database Overview](#AFRIMOVE_Overview)
