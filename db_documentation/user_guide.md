@@ -1,4 +1,4 @@
-<img src="images/afrimove_logo.png" Height="35"/>  
+<img src="images/afrimove_logo.png" Height="50"/>  
 
 # USER GUIDE	
 
@@ -9,10 +9,10 @@
 
 ## <a name="Introduction"></a> Introduction  
 
-The primary content of this manual is the technical documentation about the use of **AFRIMOVE database** for the project partners. After a general introduction to the project, the section **[Database Overview](#AFRIMOVE_Overview)**, illustrates the characteristics of the AFRIMOVE e-infrastructure and the data processing (acquisition, harmonization, quality check). It also provides a very general overview of the main features of relational databases for they who do not have any background in data management. In the section **[Database Content](#AFRIMOVE_Content)**, we describe the data that are stored in the AFRIMOVE database and how they are organized.  The section **[Database Objects Description](#AFRIMOVE_Objects)** provides the information to retrieve the description of each table and field stored in the database.  
+This manual is a (very synthetic) technical documentation about the content of **AFRIMOVE database** for the project partners. It illustrates the characteristics of the AFRIMOVE e-infrastructure and the data processing (acquisition, harmonization, quality check). It provides a very general overview of the main features of relational databases for they who do not have any background in data management. It also describes the data that are stored in the AFRIMOVE database and how they are organized, with the description of each table and field stored in the database.  
 
-Note that this is not a comprehensive manual about database. It shortly describes the AFRIMOVE database content and the main operations that can be done on it. For an introduction to the database language (Structured Query Language, SQL) you can explore one of the many online tutorials. In particular, the **[training material](https://github.com/feurbano/data_management_2018/)** of the course "Dealing with Spatio-temporal Data in Movement and Population Ecology", June 17-22 2018 - Trento, Italy, which is specifically tailored on movement data (and that uses the same database structure as AFRIMOVE).
-Other open tutorials, guides and courses available on the webare, for example:
+Note that this is not a comprehensive manual about database. It shortly introduces the AFRIMOVE database content and the main operations that can be done on it. For an introduction to the database language (Structured Query Language, SQL) you can explore one of the many online tutorials. In particular, the **[training material](https://github.com/feurbano/data_management_2018/)** of the course *"Dealing with Spatio-temporal Data in Movement and Population Ecology"*, June 17-22 2018 - Trento, Italy, which is specifically tailored on movement data (and that uses the same database structure as AFRIMOVE).  
+Other open tutorials, guides and courses available on the web are for example:
   
 * [PostgreSQL official tutorial](https://www.postgresql.org/docs/current/static/tutorial.html)
 * [postgresqltutorial](http://www.postgresqltutorial.com/)
@@ -21,11 +21,11 @@ Other open tutorials, guides and courses available on the webare, for example:
 * [webcheatsheet](http://webcheatsheet.com/sql/interactive_sql_tutorial/)
 * [www.sql.org](www.sql.org)
 
-For an introduction to PostGIS (the spatial extension of PostgreSQL) give a look here:
+For an introduction to PostGIS (the spatial extension of PostgreSQL), you can give a look here:
 
 * [PostGIS into by BoundlessGeo](http://workshops.boundlessgeo.com/postgis-intro/)
 
-In addition, for they who want to understand the technicalities of (or replicate the) EURODEER database structure and tools or to get more skills on data management for wildlife tracking data, we suggest the book **[Spatial Database for GPS Wildlife Tracking Data- A Practical Guide to Creating a Data Management System with PostgreSQL/PostGIS and R](https://www.springer.com/us/book/9783319037424)** (Urbano & Cagnacci Ed., 2014). Contact the AFRIMOVE coordinator if you want a digital version of the chapters of the book (for AFRIMOVE partners).
+In addition, for they who want to understand the technicalities of (or replicate the) AFRIMOVE database structure and tools or to get more skills on data management for wildlife tracking data, we suggest the book *[Spatial Database for GPS Wildlife Tracking Data- A Practical Guide to Creating a Data Management System with PostgreSQL/PostGIS and R](https://www.springer.com/us/book/9783319037424)* (Urbano & Cagnacci Ed., 2014). Contact the AFRIMOVE coordinator if you want a digital version of the chapters of the book (for AFRIMOVE partners).
 
 AFRIMOVE **database manager** (Ferdinando) and **data curators** (Melinda and Victoria) are always available for AFRIMOVE database users whenever technical support is needed. For example for:  
 
@@ -37,15 +37,15 @@ AFRIMOVE **database manager** (Ferdinando) and **data curators** (Melinda and Vi
 * fix of data errors
 * export of data in a format more familiar to AFRIMOVE partners
 
-The [AFRIMOVE spatial databases](http://eurodeer2.fmach.it/phppgadmin/) is hosted at [Edmund Mach Foundation](http://www.fmach.it/).
+The **[AFRIMOVE spatial databases](http://eurodeer2.fmach.it/phppgadmin/)** is hosted at [Edmund Mach Foundation](http://www.fmach.it/).
 
-More information on the projects, including activities, partners, outcomes and news can be found at the [AFRIMOVE website](http://www.AFRIMOVE.org).
+More information on the projects, including activities, partners, outcomes and news can be found at the **[AFRIMOVE website](http://www.AFRIMOVE.org)**.
 
 The participation to the project and the use of the data stored in the database is ruled by the Terms of Use signed by each partner. It is a kind of gentlemen agreement mainly based on good sense. The most important point is *"[...] The Partners maintain full property and control of their own dataset [...]"*. No ownership is transferred and data are used only if data owners explicitly authorize it for each specific research. This also mean that data are not open to the public. But the network is open to any interested scientist.
 
-The content of this guide is largely taken (and adapted) from the **[EURODEER project user guide](https://github.com/eurodeer/eurodeer_db)**.
+The content of this guide is largely derived (and adapted) from the **[EURODEER project user guide](https://github.com/eurodeer/eurodeer_db)**.
 
-## <a name="AFRIMOBE_Overview"></a> Database Overview
+## <a name="AFRIMOVE_Overview"></a> Database Overview
 
 The main goal of AFRIMOVE project is to join and harmonize tracking data of African animals and additional information from different research groups located in different countries in a common data repository. To achieve this goal, we set up a software platform that enables all partners to access, manage and analyze the shared data in a cost-effective fashion. The main requirements of the project and the assessment of possible solutions are described in the paper [Wildlife tracking data management: a new vision ](http://rstb.royalsocietypublishing.org/content/365/1550/2177)(Urbano et al., 2013).
 

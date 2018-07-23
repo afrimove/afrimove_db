@@ -1,4 +1,6 @@
-## <a name="connection"></a> Connecting with the AfriMove Database
+<img src="images/afrimove_logo.png" Height="50"/>  
+
+## <a name="connection"></a> Connecting with the  Database
 
 *Please not that in some pictures you might find a reference to eurodeer_db instead of to afrimove_db. All the examples work perfectly once you replace eurodeer with afrimove as (at the moment) they are hosted on the same server.*
 
