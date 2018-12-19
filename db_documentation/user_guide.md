@@ -9,7 +9,7 @@
 
 ## <a name="Introduction"></a> Introduction  
 
-This manual is a (very synthetic) technical documentation about the content of **AFRIMOVE database** for the project partners. It illustrates the characteristics of the AFRIMOVE e-infrastructure and the data processing (acquisition, harmonization, quality check). It provides a very general overview of the main features of relational databases for they who do not have any background in data management. It also describes the data that are stored in the AFRIMOVE database and how they are organized, with the description of each table and field stored in the database.  
+This manual is a (very synthetic) technical documentation about the content of **AFRIMOVE database** for the project partners. It illustrates the characteristics of the AFRIMOVE e-infrastructure and the data processing steps (acquisition, harmonization, quality check). It provides a very general overview of the main features of relational databases for they who do not have any background in data management. It also describes the data that are stored in the AFRIMOVE database and how they are organized, with the description of each table and field stored in the database.  
 
 Note that this is not a comprehensive manual about database. It shortly introduces the AFRIMOVE database content and the main operations that can be done on it. For an introduction to the database language (Structured Query Language, SQL) you can explore one of the many online tutorials. In particular, the **[training material](https://github.com/feurbano/data_management_2018/)** of the course *"Dealing with Spatio-temporal Data in Movement and Population Ecology"*, June 17-22 2018 - Trento, Italy, which is specifically tailored on movement data (and that uses the same database structure as AFRIMOVE).  
 Other open tutorials, guides and courses available on the web are for example:
@@ -25,7 +25,7 @@ For an introduction to PostGIS (the spatial extension of PostgreSQL), you can gi
 
 * [PostGIS into by BoundlessGeo](http://workshops.boundlessgeo.com/postgis-intro/)
 
-In addition, for they who want to understand the technicalities of (or replicate the) AFRIMOVE database structure and tools or to get more skills on data management for wildlife tracking data, we suggest the book *[Spatial Database for GPS Wildlife Tracking Data- A Practical Guide to Creating a Data Management System with PostgreSQL/PostGIS and R](https://www.springer.com/us/book/9783319037424)* (Urbano & Cagnacci Ed., 2014). Contact the AFRIMOVE coordinator if you want a digital version of the chapters of the book (for AFRIMOVE partners).
+In addition, for they who want to understand the technicalities of (or replicate) the AFRIMOVE database structure and tools or to get more skills on data management for wildlife tracking data, we suggest the book *[Spatial Database for GPS Wildlife Tracking Data- A Practical Guide to Creating a Data Management System with PostgreSQL/PostGIS and R](https://www.springer.com/us/book/9783319037424)* (Urbano & Cagnacci Ed., 2014). Contact the AFRIMOVE coordinator if you want a digital version of the chapters of the book (for AFRIMOVE partners).
 
 AFRIMOVE **database manager** (Ferdinando) and **data curators** (Melinda and Victoria) are always available for AFRIMOVE database users whenever technical support is needed. For example for:  
 
@@ -39,7 +39,7 @@ AFRIMOVE **database manager** (Ferdinando) and **data curators** (Melinda and Vi
 
 The **[AFRIMOVE spatial databases](http://eurodeer2.fmach.it/phppgadmin/)** is hosted at [Edmund Mach Foundation](http://www.fmach.it/).
 
-More information on the projects, including activities, partners, outcomes and news can be found at the **[AFRIMOVE website](http://www.AFRIMOVE.org)**.
+More information on the project, including activities, partners, outcomes and news can be found at the **[AFRIMOVE website](http://www.AFRIMOVE.org)**.
 
 The participation to the project and the use of the data stored in the database is ruled by the Terms of Use signed by each partner. It is a kind of gentlemen agreement mainly based on good sense. The most important point is *"[...] The Partners maintain full property and control of their own dataset [...]"*. No ownership is transferred and data are used only if data owners explicitly authorize it for each specific research. This also mean that data are not open to the public. But the network is open to any interested scientist.
 
@@ -47,13 +47,13 @@ The content of this guide is largely derived (and adapted) from the **[EURODEER 
 
 ## <a name="AFRIMOVE_Overview"></a> Database Overview
 
-The main goal of AFRIMOVE project is to join and harmonize tracking data of African animals and additional information from different research groups located in different countries in a common data repository. To achieve this goal, we set up a software platform that enables all partners to access, manage and analyze the shared data in a cost-effective fashion. The main requirements of the project and the assessment of possible solutions are described in the paper [Wildlife tracking data management: a new vision ](http://rstb.royalsocietypublishing.org/content/365/1550/2177)(Urbano et al., 2013).
+The main goal of AFRIMOVE project is to join and harmonize tracking data of African wildlife and additional information from different research groups located in different countries in a common data repository. To achieve this goal, we set up a software platform that enables all partners to access, manage and analyze the shared data in a cost-effective fashion. The main requirements of the project and the assessment of possible solutions are described in the paper [Wildlife tracking data management: a new vision ](http://rstb.royalsocietypublishing.org/content/365/1550/2177)(Urbano et al., 2013).
 
-The main technical result is a relational database management system with a spatial extension, built on the open source software [PostgreSQL](www.postgresql.org) (at 2018, version 9.5) and [PostGIS](www.postgis.org) (at 2018, version 2.3). It also includes the extension [Pl/R](https://github.com/postgres-plr/plr) that allows the integration of R tools into the database. The AFRIMOVE database is physically installed on a server at Edmund Mach Foundation, but it is accessible from everywhere in the world (by users with registered account). It works as a centralized server that sends data, when requested, to client applications. A client is a software that accesses the remote service (database) on another computer system (server), by way of a network; the client application can be located anywhere and multiple connections to the database can be managed at the same time. Example of client applications are those used to manage the data (e.g., pgAdmin, phpPgAdmin), visualize spatial information (e.g., QGIS, ArcGIS) or perform analysis (e.g., R).
+The main technical result is a relational database management system with a spatial extension, built on the open source software [PostgreSQL](www.postgresql.org) (at 2018, version 9.5) and [PostGIS](www.postgis.org) (at 2018, version 2.5). It also includes the extension [Pl/R](https://github.com/postgres-plr/plr) that allows the integration of R tools into the database. The AFRIMOVE database is physically installed on a server at Edmund Mach Foundation, but it is accessible from everywhere in the world (by users with a registered account). It works as a centralized server that sends data, when requested, to client applications. A client is a software that accesses the remote service (database) stored on another computer system (server), by way of a network; the client application can be located anywhere and multiple connections to the database can be managed at the same time. Example of client applications are those used to manage the data (e.g., pgAdmin, phpPgAdmin), visualize spatial information (e.g., QGIS, ArcGIS) or perform analysis (e.g., R).
 
 The server-client structure of the system offers the opportunity to build a very flexible and modular software platform, as any software able to connect to the central database can be integrated. Storing, managing, accessing and analysing GPS data from several research groups throughout Europe is thus possible, while each researcher can use its favourite software application, preserving the consistency of the data and avoiding data duplication with connected risk of errors. The most used applications to interact with the AFRIMOVE database are Desktop GIS, statistics and Web tools, as well as office suites. 
 
-In the document [Database connection](https://github.com/afrimove/afrimove_db/blob/master/db_documentation/db_connection.md) you can see some of these applications and how to connect them with the AFRIMOBE database, while in [Database Content](#AFRIMOVE_Content) and [Database Objects Description](#AFRIMOVE_Objects) you can explore database structure and content.  
+In the document [Database connection](https://feurbano.github.io/afrimove_db/db_documentation/db_connection.html) you can see some of these applications and how to connect them with the AFRIMOBE database, while in [Database Content](#AFRIMOVE_Content) and [Database Objects Description](#AFRIMOVE_Objects) you can explore database structure and content.  
 In this section, you find an overview of the whole process from data acquisition to data ingestion into the AFRIMOVE database, with a very short introduction to the main features of relational database. 
 
 ### AFRIMOVE data work flow
@@ -62,7 +62,7 @@ In this section, you find an overview of the whole process from data acquisition
 Data stored in the afrimove_db is collected by project partners who fully own the data. No data are collected by AFRIMOVE project itself, which is instead a project to share data of individual institutions. 
 
 #### Data harmonization
-A challenging part in the creation of the afrimove_db is the harmonization of data sets from different sources. First of all, it is necessary to identify a set of information that are collected by all (or at least most of) the partners. Then, even when the information is related to the same objects phenomena, it can be collected, coded or stored in different ways (e.g., sampling methods, units, classes). The data have been processed to speak "the same language". In some cases this requires the aggregation of the original data, but this is the only way to run analysis over different areas and environmental gradients.  
+A challenging part in the creation of the afrimove_db is the harmonization of data sets from different sources. First of all, it is necessary to identify a set of information that are collected by all (or at least most of) the partners. Then, even when the information is related to the same objects phenomena, it can be collected, coded or stored in different ways (e.g., sampling methods, units, classes). The data is processed to speak "the same language". In some cases this requires the aggregation of the original data, but this is the only way to run analysis over different areas and environmental gradients.  
 Particularly, data owners are asked (with the support of the AFRIMOVE data curators) to format the data in order to be consistent with the afrimove_db. Then, it is up to the database manager and data curators to process data and upload into the database.
 
 #### Quality checks
@@ -141,54 +141,227 @@ Although any application that support standard database connection can be used w
 
 ## <a name="AFRIMOVE_Content"></a> Database content
 
-
-<center><img src="images/db_schema.png" height="600"/></center>
-
------>
-
-The EURODEER database is the repositories where data coming from the different partners of the EURODEER network are harmonized, stored and shared to be analyzed. The first goal of EURODEER is to investigate variations in roe deer behavioural ecology along environmental gradients or population responses to specific conditions, such as habitat changes, impact of human activities, different hunting regime. Therefore, the main set of data stored into the EURODEER database are those generated by biotelemetry sensors to monitor animals movement, particularly:
+The AFRIMOVE database is the repositories where data coming from the different partners of the AFRIMOVE network are harmonized, stored and shared to be analyzed. The first goal of AFRIMOVE is to investigate variations in roe deer behavioural ecology along environmental gradients or population responses to specific conditions, such as habitat changes, impact of human activities, different hunting regime. Therefore, the main set of data stored into the database are those generated by biotelemetry sensors to monitor animals movement, particularly:
 
 * GPS data
 * VHF data
 * Accelerometer data
 
-These are the core information that was initially collected and shared in the EURODEER framework. After some years, we realized that while these data sets provide a huge mine of data to dig, it is when they are couple with additional information like that of the individuals, populations, management regimes and the environment that they can help to fully decipher the mechanisms of animals movement. This is why in the last years EURODEER has been and is still investing a lot in getting these additional information from each partner, harmonize them and integrate into the analysis. This is a complex process but ultimately it is the biggest added value of the collaboration among scientist on top of the integration into a single repository of the data coming from sensors. The work of data harmonization requires long and iterative discussions but it is also an opportunity to identify good practice (e.g. data collection protocols) that can then be shared with a wider scientific community.
+These are the core information that are collected and shared in the AFRIMOVE framework. But while these data sets provide a huge mine of data to dig, it is when they are couple with additional information like that of the individuals, populations, management regimes and the environment that they can help to fully decipher the mechanisms of animals movement. This is why we aim at collecting also these additional information from each partner, harmonize them and integrate into the analysis. This is a complex process but ultimately it is the biggest added value of the collaboration among scientist on top of the integration into a single repository of the data coming from sensors. The work of data harmonization requires long and iterative discussions but it is also an opportunity to identify good practice (e.g. data collection protocols) that can then be shared with a wider scientific community.
 
-Sensor data sets (GPS, VHF, accelerometer) in addition to the measures collected by the sensors include the list of animals (with key attributes like sex and age), the list and type/model of sensors, and the start and end of sensor deployment (with the reason for the end of deployment).
-In addition to sensor data, at the moment in the EURODEER data sets we have information on:
+Sensor data sets (GPS, VHF, accelerometer) in addition to the measures collected by the sensors include the list of animals (with key attributes like sex, age and how hey died), the list and type/model of sensors, and the start and end of sensor deployment (with the reason for the end of deployment).
 
-* Research groups, study areas and sub-areas
-* Intra- and inter-species interaction and human pressure (predation, competition, human pressure)
-* Captures
-* Contacts
-* Feeding sites
-* Environmental data
+Here below is reported a simplified ER diagram. It illustrates the main tables and views and the relations among the tables.
+<center><img src="images/db_schema.png" height="600"/></center>
 
-A short description of the information content of these data sets is reported in the next sub-sections together with a diagram of the data model. In the document **[eurodeer_db Dictionary](eurodeer_db_dictionary.md)** is reported the full description of each table/attribute.
+A short description of the information content of these data sets is reported in the next sub-sections together with a diagram of the data model. 
 
-All the core information is stored in the schema **main**, with the exception of the environmental data that are available in the schema **env_data** and the schema **env_data_ts** (for layers with a time series, e.g., NDVI and snow). In the schema **tools** there are the functions created by EURODEER to process and analyze the data (see [functions](eurodeer_db_functions.md)). The schema **analysis** is used to store informations related to analysis that can be reused by all EURODEER partners. The working schema **ws\_*** are spaces where each partner institution can create table and process the data (one per institute). Finally, in the **lu_tables** schema, the database stores all the look up tables, i.e., those tables used to define (code) a valid domain of values for specific fields (e.g., the list of capture methods).
+All the core information is stored in the schema **main**, with the exception of the environmental data that are available in the schema **env_data** and the schema **env_data_ts** (for layers with a time series, e.g., NDVI and snow). In the schema **tools** there are the functions created to process and analyze the data. The schema **analysis** is used to store informations related to analysis that can be reused by all partners. The working schema **ws\_*** are spaces where each partner institution can create table and process the data (one per institute). Finally, in the **lu_tables** schema, the database stores all the look up tables, i.e., those tables used to define (code) a valid domain of values for specific fields (e.g., the list of capture methods).
 
 ### Research groups, study areas and sub-areas
-Sensor data are always related to animals. Each animal is assigned to one (and only one) study area. Each study area belongs to (is monitored by) a research group. The same research group can have more than one study area. Each study area is divided into one or more sub-areas, that roughly recall the concept of population. Each sub-area is characterized by a set of information (human disturbance, performance, predators, interspecific competition, hunting pressure, road density, which are collected every one or more years. Sensors (GPS, VHF, accelerometer) are also attributed to a specific research group.
-In the view **main.view_reasearch_groups_euroungulates** all the groups belonging to EUROUNGULATES are reported (through external tables that connect with EUREDDEER and EUROBOAR database).
-  
-The entity-relationship (ER) diagram of the tables is reported here below (click on it to enlarge).
-<img src="images/er_core.png" height="600"/>
+Sensor data are always related to animals. Each animal is assigned to one (and only one) study area. Each study area belongs to (is monitored by) a research group. The same research group can have more than one study area. Sensors (GPS, VHF, accelerometer) are attributed to a specific research group.
 
 ### GPS data
-GPS locations are stored already associated to animals (which is a non-trivial step, specially when the same sensor is associated to different animals once recovered from the previous one). The locations, with a list of derived ancillary information calculated using the information on coordinates and acquisition time, and intersecting with environmental layers are stoerd in the table **main.gps_data_animals**. The original file coming from the sensor is not stored in EURODEER as in the database are shared data already preprocessed by the partners and only quality checked before being uploaded into eurodeer_db. It is important to note that all the outliers are not removed from the dataset but flagged using the field *gps_validity_code*. This includes, among the others, records with no coordinates, records with wrong coordinates, record with suspicious coordinates, records not registered while the sensor was deployed on the animal. When data are analyzed, records must be selected according to the quality level required by the specific analysis.  
+GPS locations are stored already associated to animals (which is a non-trivial step, specially when the same sensor is associated to different animals once recovered from the previous one). The locations, with a list of derived ancillary information calculated using the information on coordinates and acquisition time, and intersecting with environmental layers are stored in the table **main.gps_data_animals**. The original file coming from the sensor is not stored in the db as in the database are shared data already preprocessed by the partners and only quality checked before being uploaded. It is important to note that all the outliers are not removed from the dataset but flagged using the field *gps_validity_code*. This includes, among the others, records with no coordinates, records with wrong coordinates, record with suspicious coordinates, records not registered while the sensor was deployed on the animal. When data are analyzed, records must be selected according to the quality level required by the specific analysis.  
 The information on the deployment are stored in the table **main.gps_sensors_animals**, including the reasons of the end of the deployment. This table is used to check the correct attribution of locations to animals in the table **main.gps_data_animals**. Information on sensors are stored in **main.sensors**, while the information on animals in **main.animals**. A set of look up tables are used to store the list of valid values for some columns of these tables.  
-In the views **analysis.view_convexhull** and ** analysis.view_trajectories** are available the trajectories and convex hull polygons related to each animal (and dynamically updated). These can be loaded in QGIS for spatial visualization. In the view **analysis.view_ltraj_class** data are formatted according to [R adehabitat package](https://cran.r-project.org/web/packages/adehabitat/adehabitat.pdf) to facilitate the import for analysis. See **[eurodeer_db Dictionary](eurodeer_db_dictionary.md)** for the complete list of view associted to GPS data.
-
-The entity-relationship (ER) diagram of the tables is reported here below (click on it to enlarge).
-<center><img src="images/er_gps.png" height="600"/></center>
+In the views **analysis.view_convexhull** and ** analysis.view_trajectories** are available the trajectories and convex hull polygons related to each animal (and dynamically updated). These can be loaded in QGIS for spatial visualization. In the view **analysis.view_ltraj_class** data are formatted according to [R adehabitat package](https://cran.r-project.org/web/packages/adehabitat/adehabitat.pdf) to facilitate the import for analysis.
 
 ### Environmental data
 *WORK IN PROGRESS*
 
-## <a name="AFRIMOVE_Objects"></a> Database Objects Description
+# <a name="AFRIMOVE_Objects"></a> Database Objects Description
+
 Every single object in the afrimove_db (schemas, tables, columns, views, functions) is described inside the database (as [comment](https://www.postgresql.org/docs/devel/static/sql-comment.html)). The descriptions are visible in all db interface (e.g., pgAdmin) when the element is selected. 
 
------>
-An extended report, **[eurodeer_db Dictionary](eurodeer_db_dictionary.md)** that includes the description of the objects of the database (generate with this [SQL code](generate_database_dictionary_sql/generate_dictionary.md) in markdown format, taking the comments from the database itself).
+Here you can see a short report that includes the description of the objects of the database (schema, tables, columns) in markdown format, taking the comments from the database itself.
+
+## SCHEMA: main  
+**The schema "main" is the place where all the core information of the main objects are stored: data from sensors (at the moment, GPS, VHF, activity), sensors, animals, studies, research groups.**  
+
+### TABLE: main.animals  
+Table with the information on the animals.  
+
+#### COLUMNS 
+
+* **animals\_id** [integer]: *Database id of population. Each animal belongs to a population, which is part of a study area. The same study area can have multiple populations. Linked with the table main.populations.* 
+* **species\_name** [character varying]: *Name of the species of the individual.* 
+* **study\_areas\_id** [integer]: *Study area where the animal is located (reference to table main.study\_area).* 
+* **animal\_original\_code** [character varying]: *Identifier of the animal in the original data set.* 
+* **animal\_name** [character varying]: *Nome of the animal in the original data set.* 
+* **sex** [character]: *Code for sex. It can be either "f" (female) or "m" (male). When the sex is not known, the field can be left empty.* 
+* **year\_birth** [integer]: 
+* **year\_birth\_exact** [boolean]: 
+* **notes** [character varying]: *Open field where general notes on the animals can be added.* 
+* **age\_class** [character varying]: *Age class of the animal (e.g. adult). This information is not coded as the age class might vary according to the species.* 
+* **mortality\_code** [integer]: 
+* **death\_date** [date]: 
+* **death\_time** [time with time zone]: 
+
+### TABLE: main.gps\_data\_animals  
+Table with GPS locations data associated to animals and with a list of derived ancillary information calculated using the information on coordinates and acquisition time, and intersecting with environmental layers.  
+
+#### COLUMNS 
+
+
+* **gps\_data\_animals\_id** [integer]: *Eurodeer identifier for the location.* 
+* **animals\_id** [integer]: *Eurodeer identifier for the animal.* 
+* **gps\_sensors\_id** [integer]: *Eurodeer identifier for the GPS sensor.* 
+* **acquisition\_time** [timestamp with time zone]: *Date and time of acquisition of the GPS coordinates (with time zone).* 
+* **longitude** [double precision]: *Longitude recorded by the GPS sensor.* 
+* **latitude** [double precision]: *Latitude recorded by the GPS sensor.* 
+* **altitude\_gps** [integer]: *Altitude recorded by the GPS sensor (related to the centre of the earth).* 
+* **geom** [USER-DEFINED]: *Geometry of the location (point).* 
+* **gps\_validity\_code** [smallint]: *This field tags the record according to its "validity" or degree of reliability (explanation of codes in lu\_tables.lu\_gps\_validity).* 
+* **x\_original\_reference** [double precision]: *Coordinate X as computed by the software connected to the GPS sensor (in the srid\_original\_reference).* 
+* **y\_original\_reference** [double precision]: *Coordinate Y as computed by the software connected to the GPS sensor (in the srid\_original\_reference).* 
+* **srid\_original\_reference** [integer]: *Reference system of the projected coordinates provided by the software connected to the GPS sensor.* 
+* **dop** [double precision]: *Dilution Of Precision.* 
+* **sats** [integer]: *Number of satellites used by the GPS sensor to calculate the coordinates.* 
+* **temperature\_sensor** [double precision]: *Temperature as measured by the sensor associated to the GPS.* 
+* **sun\_angle** [double precision]: *Sun angle above (or below) the horizon (in degrees) as computed by the function tools.sun\_elevation\_angle\_function.* 
+* **utm\_srid** [integer]: *SRID code of the UTM zone of the centroid of the locations for the animal.* 
+* **utm\_x** [integer]: *X coordinate projected in the utm\_srid UTM zone.* 
+* **utm\_y** [integer]: *Y coordinate projected in the utm\_srid UTM zone.* 
+* **insert\_timestamp** [timestamp with time zone]: *Date and time when the record was uploaded into the database.* 
+* **scheduled** [boolean]: *Some locations might be taken even if they were not scheduled (in this case, the value is FALSE).* 
+
+### TABLE: main.gps\_sensors  
+Catalogue of GPS sensors. Each sensor belongs to a research group. The attributes include the brand and the model. The id used in the original data set is also included.  
+
+#### COLUMNS 
+
+
+* **gps\_sensors\_id** [integer]: *afrimove identifier for GPS sensors.* 
+* **research\_groups\_id** [integer]: *Id of the research group that owns the GPS sensor.* 
+* **gps\_sensors\_original\_code** [character varying]: *Identifier of the GPS sensor in the original data set.* 
+* **vendor** [character varying]: *Company that produced the sensor.* 
+* **model** [character varying]: *Additional notes about the GPS sensor.* 
+* **notes** [text]: 
+
+### TABLE: main.gps\_sensors\_animals  
+Table with the information on the deployments of GPS sensors on animals (starting and ending date and time of the deployment), reason of the end of deployment, reference capture. Here we identify when the sensor stopped to monitor the (alive) animal. So the date is not that of collar recovery (it goes in table animals\_contacts, nor the date of death (table animals).  
+
+#### COLUMNS 
+
+
+* **gps\_sensors\_animals\_id** [integer]: *afrimove identifier of the deployment.* 
+* **gps\_sensors\_id** [integer]: *afrimove identifier of the GPS sensor.* 
+* **animals\_id** [integer]: *afrimove identifier of the animal.* 
+* **start\_time** [timestamp with time zone]: *Time and date of the start of the deployment.* 
+* **end\_time** [timestamp with time zone]: *Time and date of the end of the deployment.* 
+* **end\_deployment\_code** [integer]: *Code for the reason of the end of deployment (reference to the look up table lu\_tables.lu\_end\_deployment).* 
+* **notes** [character varying]: *Open field where general notes on the deployment can be added.* 
+
+### TABLE: main.research\_groups  
+Research groups are the highest level in the hierarchy of the database. Each research group can have many study areas and can own many collars.  
+
+#### COLUMNS 
+
+
+* **research\_groups\_id** [integer]: *afrimove identifier for research groups.* 
+* **research\_group\_name** [character varying]: *Name of the research group.* 
+* **contact** [character varying]: *Contact person of the research group for the afrimove project.* 
+* **institution** [character varying]: *Institute of the research group.* 
+* **short\_name** [character varying]: *Short name of the research group.* 
+* **country** [character varying]: *Country of the research group.* 
+* **geom** [USER-DEFINED]: *Approximate location of the research group.* 
+* **year\_joined** [integer]: *Year when the group joined the afrimove project.* 
+
+### TABLE: main.species  
+Table with the list of species monitored by Afrimove partners.  
+
+#### COLUMNS 
+
+
+* **species\_name** [character varying]: *Name of the species.* 
+* **species\_scientific\_name** [character varying]: *Scientific name of the species.* 
+* **notes** [character varying]: *Notes about the species.* 
+
+### TABLE: main.study\_areas  
+Study areas are the areas monitored by research groups. Each study area can have many animals. Study areas can have defined, approximated, or no specific spatial boundaries.  
+
+#### COLUMNS 
+
+
+* **study\_areas\_id** [integer]: *afrimove identifier for study areas.* 
+* **study\_name** [character varying]: *Name of the study area.* 
+* **geom** [USER-DEFINED]: *Multi polygons layer of study areas. This spatial layer can be used as a reference to locate the study areas. Study areas can have defined boundaries (e.g. fenced). In this case, the field "defined\_bundaries" is set to 1. Otherwise a reference boundary is created as the convex hull polygon (plus a buffer of 1 km) of the existing locations. These boundaries should be updated whenever a new set of locations is uploaded in the database.* 
+* **research\_groups\_id** [integer]: *Indentifier of the research group that is monitoring animals in this study area.* 
+* **short\_name** [character varying]: *Short version of the study area name for maps and short reports.* 
+
+### VIEW: main.view\_afrimove\_gps\_positions  
+Animal locations with valid coordinates and information on animals (study area, research group, age and sex).  
+
+
+### VIEW: main.view\_afrimove\_gps\_positions\_check\_shp  
+Animal locations with valid coordinates and information on animals (study area, research group, age and sex) formatted to be exported as shp (names shorter than dbf limits).  
+
+
+### VIEW: main.view\_afrimove\_gps\_positions\_r  
+Animal locations with valid coordinates and information on animals (study area, research group, age and sex) formatted to be exported in R.  
+
+
+### VIEW: main.view\_afrimove\_gps\_positions\_shp  
+Animal locations with valid coordinates and information on animals (study area, research group, age and sex) formatted to be exported as shp (names shorter than dbf limits).  
+
+
+### VIEW: main.view\_convexhull  
+View with the convex hull of all valid locations per all the animals of afrimove dataset.  
+
+
+### VIEW: main.view\_locations\_set  
+View that returns the core information of locations data (id of the animal, the acquisition time and the geometry). Non valid records are represented without the geometry. Duplicated timestamps  and wrong locations are excluded.  
+
+
+### VIEW: main.view\_trajectories  
+Complete trajectories as linear spatial features per each of the animals of afrimove dataset.  
+
+
+## SCHEMA: lu\_tables  
+**The schema "lu_tables" is where the look up tables (lu_tables) are stored. These tables store the list and the description of codes referenced by other tables in the database and are a kind of valid domain for specific fields.**  
+
+### TABLE: lu\_tables.lu\_end\_deployment  
+Look up table for end\_deployment\_code field: it specifies the meaning of the code used to identify the reasons of the end of deployment.  
+
+#### COLUMNS 
+
+
+* **end\_deployment\_code** [integer]: *Code for the reason of the end of deployment.* 
+* **end\_deployment\_description** [character varying]: *Desciption of the reason of the end of deployment.* 
+### TABLE: lu\_tables.lu\_gps\_validity  
+Look up table for GPS locations validity.  
+
+#### COLUMNS 
+
+
+* **gps\_validity\_code** [integer]: *Code of the GPS locations validity.* 
+* **gps\_validity\_description** [character varying]: *Description of the GPS locations validity code.* 
+### TABLE: lu\_tables.lu\_mortality  
+Look up table for mortality\_code field (table main.animals\_contacts): it specifies the meaning of the code used to identify the reasons of the death of the animal.  
+
+#### COLUMNS 
+
+
+* **mortality\_code** [integer]: *Code for the reason of the death of the animal.* 
+* **mortality\_description** [character varying]: *Desciption of the reason of the death of the animal.* 
+### TABLE: lu\_tables.lu\_temperature\_validity  
+Look up table for temperature locations validity.  
+
+#### COLUMNS 
+
+* **temperature\_validity\_code** [integer]: *Code of the temperature validity.* 
+* **temperature\_validity\_description** [character varying]: *Description of the temperature validity code.*   
+
+## SCHEMA: tools  
+**The schema "tools" hosts all the functions and tools that are used throughout the database to manage, massage, analyse and query data.**  
+
+## SCHEMA: temp  
+**This schema stores temporary objects (tables, functions, ...) used for analysis or for testing purposes. Elements stored in this schema can be deleted at any time by the database administrator.**  
+
+## SCHEMA: public  
+**standard public schema**  
+
+## SCHEMA: ws_cnrs
+**Working schema for members of CNRS. This can be used to create any object they need for their studies. No other users will have access to this schema.**
+
 
