@@ -23,7 +23,7 @@ Other open tutorials, guides and courses available on the web are for example:
 
 For an introduction to PostGIS (the spatial extension of PostgreSQL), you can give a look here:
 
-* [PostGIS into by BoundlessGeo](http://workshops.boundlessgeo.com/postgis-intro/)
+* [PostGIS Intro by BoundlessGeo](http://workshops.boundlessgeo.com/postgis-intro/)
 
 In addition, for they who want to understand the technicalities of (or replicate) the AFRIMOVE database structure and tools or to get more skills on data management for wildlife tracking data, we suggest the book *[Spatial Database for GPS Wildlife Tracking Data- A Practical Guide to Creating a Data Management System with PostgreSQL/PostGIS and R](https://www.springer.com/us/book/9783319037424)* (Urbano & Cagnacci Ed., 2014). Contact the AFRIMOVE coordinator if you want a digital version of the chapters of the book (for AFRIMOVE partners).
 
